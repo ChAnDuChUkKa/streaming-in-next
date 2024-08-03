@@ -25,6 +25,9 @@ export default function Home() {
     };
 
     fetchData();
+    const intervalId = setInterval(fetchData, 10000); // Fetch data every 30 seconds
+
+    return () => clearInterval(intervalId);
   }, [dispatch, cryptoCoins]);
 
   if (!data) {
