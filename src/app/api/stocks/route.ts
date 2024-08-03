@@ -1,13 +1,16 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { getAllStocksData } from "../client/client";
+import { updateCoins } from "../client/route";
 import { getStocksFromMongoDb } from "../db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+export const GET = async (req: NextRequest, res: NextResponse) => {
   if (req.method === "GET") {
     try {
-      // const coins = Array.isArray(coinsParam) ? coinsParam : coinsParam.split(',');
+      // console.log("line 8", req.nextUrl.searchParams.get("coins")?.split(","));
+      const newCrypto:string[]=req.nextUrl.searchParams.get("coins")?.split(',')||[];
+      const data:string[]=updateCoins(newCrypto)
+      await getAllStocksData(data);
       const stocks = await getStocksFromMongoDb();
-      // res.status(200).json(stocks);
       return NextResponse.json(stocks);
     } catch (error) {
       console.error("Error fetching stocks from MongoDB:", error);

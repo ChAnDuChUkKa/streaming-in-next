@@ -20,7 +20,7 @@
     font-size: 20px;
    }
    .modal-title {
-    color: #6821c3;
+    color: green;
     font-weight: 700;
     font-size: 30px;
     line-height: 28px;
@@ -30,12 +30,4 @@
    }
    .modalText {
     text-align: justify;
-   }
-   .modal-button button {
-    border: 1px solid #6821c3;
-    padding: 6px;
-    width: 8rem;
-    background-color: #6821c3;
-    color: white;
-    border-radius: 7px;
    }

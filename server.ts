@@ -1,27 +1,37 @@
-const { createServer } = require('http');
-const { Server } = require('socket.io');
-const next = require('next');
+// server.ts
+import { createServer } from 'http';
+import { parse } from 'url';
+import next from 'next';
+import { Server as SocketIOServer, Socket } from 'socket.io';
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  const server = createServer((req: any, res: any) => {
-    handle(req, res);
+  const server = createServer((req, res) => {
+    const parsedUrl = parse(req.url!, true);
+    handle(req, res, parsedUrl);
   });
 
-  const io = new Server(server);
+  const io = new SocketIOServer(server);
 
-  io.on('connection', (socket: { on: (arg0: string, arg1: () => void) => void; }) => {
-    console.log('New client connected');
+  io.on('connection', (socket: Socket) => {
+    console.log('A user connected');
     socket.on('disconnect', () => {
-      console.log('Client disconnected');
+      console.log('User disconnected');
     });
+
+    // Simulate data update
+    setInterval(() => {
+      const newData = { /* simulated data */ };
+      socket.emit('dataUpdated', newData);
+    }, 5000); // Emit update every 5 seconds
   });
 
-  server.listen(3000, (err: any) => {
+  const port = process.env.PORT || 3000;
+  server.listen(port, (err?: Error) => {
     if (err) throw err;
-    console.log('Server running on http://localhost:3000');
+    console.log(`Server listening on http://localhost:${port}`);
   });
 });

@@ -34,25 +34,3 @@ export const getAllStocksData = async (cryptoCoins:string[])=> {
     return undefined;
   }
 };
-
-// async function fetchData() {
-//   try {
-//     console.log("Fetching data");
-//     await getAllStocksData(coins);
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// }
-
-// function scheduleFetch() {
-//   fetchData().then(() => {
-//     setTimeout(scheduleFetch, 10000);
-//   }).catch(error => {
-//     console.error('Error in fetchData:', error);
-//     setTimeout(scheduleFetch, 10000); // Schedule next fetch even if there's an error
-//   });
-// }
-
-// console.log("scheduled logs")
-
-// scheduleFetch();
