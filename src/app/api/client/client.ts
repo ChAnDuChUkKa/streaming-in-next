@@ -29,7 +29,7 @@ export const getAllStocksData = async (cryptoCoins:string[])=> {
     await storeStocks(dataList);
     // return dataList;
   } catch (error) {
-    console.log("Error While Getting the Stocks Data", error);
+    // console.log("Error While Getting the Stocks Data", error);
     // throw new Error("error");
     return undefined;
   }

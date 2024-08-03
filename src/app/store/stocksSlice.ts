@@ -23,7 +23,7 @@ const initialState: StocksState = {
 export const fetchStocksData = createAsyncThunk(
   "stocks/fetchStocksData",
   async (coins: string[]) => {
-    console.log("fetching api for stocks", coins);
+    // console.log("fetching api for stocks", coins);
     const data = await axios.get<StockInfoEntity[]>("/api/stocks", {
       params: { coins: coins.join(",") },
     });
@@ -37,7 +37,7 @@ export const updateStocksData = createAsyncThunk<
   { rejectValue: string }
 >("stocks/updateStocksData", async (coins, { rejectWithValue }) => {
   try {
-    console.log("fetching api for stocks", coins);
+    // console.log("fetching api for stocks", coins);
     const response = await axios.put("/api/client", [...coins]);
     if (!response.data) {
       return rejectWithValue("No data returned from API");
@@ -61,9 +61,9 @@ const stocksSlice = createSlice({
       state.selectedStock = null;
     },
     updateCoins(state, action: PayloadAction<{ index: number; coin: string }>) {
-      console.log(state,action.payload,"update cryptoCoins fn");
+      // console.log(state,action.payload,"update cryptoCoins fn");
       state.coins[action.payload.index] = action.payload.coin;
-      console.log(state,"cryptoCoins state")
+      // console.log(state,"cryptoCoins state")
     },
   },
   extraReducers: (builder) => {

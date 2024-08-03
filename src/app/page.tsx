@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { fetchStocksData } from "./store/stocksSlice";
 import { AppDispatch, RootState } from "@/lib/store";
 import { io } from "socket.io-client";
-import SocketClient from "./Components/stockClient";
+import SocketClient from "./Components/socketClient";
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center w-[100%] sm:p-[1rem] pt-0 lg:pt-12 lg:px-24">
       <h1 className="font-bold mb-2 text-[24px]">FOMO FACTORY</h1>
-      <SocketClient />
+      {/* <SocketClient /> */}
 
       {data.length > 0 ? (
         data.map((eachCoinData: StockInfoEntity) => (

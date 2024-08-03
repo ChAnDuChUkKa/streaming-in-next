@@ -7,7 +7,8 @@ let coins: string[] = ["BTC", "ETH", "USDT", "BNB", "SOL"];
 
 export const updateCoins = (newCoins: string[]) => {
   if(newCoins.length>=1){
-  coins = newCoins
+    coins = newCoins
+    console.log(coins,"coijns")
   return coins
   }else{
     return coins
@@ -16,14 +17,13 @@ export const updateCoins = (newCoins: string[]) => {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export const GET = async (req: NextApiRequest, res: NextResponse) => {
-  console.log(new Date());
   
   if (req.method === "GET") {
     try {      
       const stocks = await getAllStocksData(coins);
       return NextResponse.json(stocks, { status: 200 });
     } catch (error) {
-      console.error("Error fetching stocks from Live Coin:", error);
+      // console.error("Error fetching stocks from Live Coin:", error);
       return NextResponse.json(
         { error: "Internal Server Error" },
         { status: 500 }
@@ -34,10 +34,7 @@ export const GET = async (req: NextApiRequest, res: NextResponse) => {
 
 export const PUT = async (req: NextApiRequest, res: NextResponse) => {
   try {
-    console.log(req.body);
-
     const { coinsList } = req.body;
-    console.log(coinsList, "updated coins");
     if (!Array.isArray(coinsList)) {
       return NextResponse.json(
         { error: "Invalid data format. Expected an array of coins." },
@@ -71,7 +68,6 @@ export default async (req: NextApiRequest, res: NextResponse) => {
 
 async function fetchData() {
   try {
-    console.log("Fetching data");
     await getAllStocksData(coins);
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -82,11 +78,9 @@ function scheduleFetch() {
   fetchData().then(() => {
     setTimeout(scheduleFetch, 30000);
   }).catch(error => {
-    console.error('Error in fetchData:', error);
     setTimeout(scheduleFetch, 10000); // Schedule next fetch even if there's an error
   });
 }
 
-console.log("scheduled logs")
 
 scheduleFetch();

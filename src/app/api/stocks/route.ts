@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
       const stocks = await getStocksFromMongoDb();
       return NextResponse.json(stocks);
     } catch (error) {
-      console.error("Error fetching stocks from MongoDB:", error);
+      // console.error("Error fetching stocks from MongoDB:", error);
       return NextResponse.json({ error: "Failed to fetch stocks data" });
     }
   } else {

@@ -37,8 +37,8 @@ import {
         return stock as unknown as StockInfoEntity;
       });
     } catch (error) {
-      console.log("Something went wrong while storing data!");
-      console.log(error);
+      // console.log("Something went wrong while storing data!");
+      // console.log(error);
     } finally {
       await client.close();
     }
